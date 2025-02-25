@@ -18,8 +18,10 @@ namespace PlaylistApi.Models
         // One-to-One relationship
         public Streams? Streams { get; set; }
 
-        [Required]
-        public string? Album { get; set; }
+
+        // One-to-Many relationship
+        public int? AlbumId { get; set; }
+        public Album? Album { get; set; }
 
         public string? Category { get; set; }
     }
