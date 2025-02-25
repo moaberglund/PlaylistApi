@@ -15,6 +15,9 @@ namespace PlaylistApi.Models
         [Required]
         public int? Length { get; set; }
 
+        // One-to-One relationship
+        public Streams? Streams { get; set; }
+
         [Required]
         public string? Album { get; set; }
 
