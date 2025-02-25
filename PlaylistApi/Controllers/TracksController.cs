@@ -25,7 +25,10 @@ namespace PlaylistApi.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Track>>> GetTracks()
         {
-            return await _context.Tracks.ToListAsync();
+            return await _context.Tracks
+                .Include(track => track.Streams)
+                .Include(track => track.Album)
+                .ToListAsync();
         }
 
         // GET: api/Tracks/5
