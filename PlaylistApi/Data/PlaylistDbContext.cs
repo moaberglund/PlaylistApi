@@ -8,6 +8,7 @@ namespace PlaylistApi.Data
         public PlaylistContext(DbContextOptions<PlaylistContext> options) : base(options) { }
 
         public DbSet<Track> Tracks { get; set; }
+        public DbSet<Streams> Streams { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
