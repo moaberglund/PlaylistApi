@@ -9,6 +9,7 @@ namespace PlaylistApi.Data
 
         public DbSet<Track> Tracks { get; set; }
         public DbSet<Streams> Streams { get; set; }
+        public DbSet<Album> Albums { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -21,7 +22,6 @@ namespace PlaylistApi.Data
                     Title = "The Less I Know The Better",
                     Artist = "Tame Impala",
                     Length = 216,
-                    Album = "Currents",
                     Category = "Indie"
                 },
                 new Track
@@ -30,7 +30,6 @@ namespace PlaylistApi.Data
                     Title = "Dreams",
                     Artist = "Fleetwood Mac",
                     Length = 256,
-                    Album = "Rumours",
                     Category = "Rock"
                 },
                 new Track
@@ -39,7 +38,6 @@ namespace PlaylistApi.Data
                     Title = "Dancing Queen",
                     Artist = "ABBA",
                     Length = 227,
-                    Album = "Arrival",
                     Category = "Pop"
                 },
                 new Track
@@ -48,7 +46,6 @@ namespace PlaylistApi.Data
                     Title = "Bohemian Rhapsody",
                     Artist = "Queen",
                     Length = 354,
-                    Album = "A Night at the Opera",
                     Category = "Rock"
                 }
                 );
