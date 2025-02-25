@@ -23,6 +23,8 @@ namespace PlaylistApi.Models
         public int? AlbumId { get; set; }
         public Album? Album { get; set; }
 
-        public string? Category { get; set; }
+
+        // Many-to-Many relationship
+        public List<Genre>? Genres { get; set; }
     }
 }
