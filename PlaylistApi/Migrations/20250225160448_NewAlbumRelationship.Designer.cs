@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PlaylistApi.Data;
 
@@ -10,9 +11,11 @@ using PlaylistApi.Data;
 namespace PlaylistApi.Migrations
 {
     [DbContext(typeof(PlaylistContext))]
-    partial class PlaylistContextModelSnapshot : ModelSnapshot
+    [Migration("20250225160448_NewAlbumRelationship")]
+    partial class NewAlbumRelationship
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

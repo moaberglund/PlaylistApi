@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PlaylistApi.Data;
 
@@ -10,9 +11,11 @@ using PlaylistApi.Data;
 namespace PlaylistApi.Migrations
 {
     [DbContext(typeof(PlaylistContext))]
-    partial class PlaylistContextModelSnapshot : ModelSnapshot
+    [Migration("20250225152342_StreamsRelationship")]
+    partial class StreamsRelationship
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -20,29 +23,6 @@ namespace PlaylistApi.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
-
-            modelBuilder.Entity("PlaylistApi.Models.Album", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("AlbumTitle")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Studio")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("Year")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Albums");
-                });
 
             modelBuilder.Entity("PlaylistApi.Models.Streams", b =>
                 {
@@ -80,8 +60,9 @@ namespace PlaylistApi.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int?>("AlbumId")
-                        .HasColumnType("int");
+                    b.Property<string>("Album")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Artist")
                         .IsRequired()
@@ -99,14 +80,13 @@ namespace PlaylistApi.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("AlbumId");
-
                     b.ToTable("Tracks");
 
                     b.HasData(
                         new
                         {
                             Id = 1,
+                            Album = "Currents",
                             Artist = "Tame Impala",
                             Category = "Indie",
                             Length = 216,
@@ -115,6 +95,7 @@ namespace PlaylistApi.Migrations
                         new
                         {
                             Id = 2,
+                            Album = "Rumours",
                             Artist = "Fleetwood Mac",
                             Category = "Rock",
                             Length = 256,
@@ -123,6 +104,7 @@ namespace PlaylistApi.Migrations
                         new
                         {
                             Id = 3,
+                            Album = "Arrival",
                             Artist = "ABBA",
                             Category = "Pop",
                             Length = 227,
@@ -131,6 +113,7 @@ namespace PlaylistApi.Migrations
                         new
                         {
                             Id = 4,
+                            Album = "A Night at the Opera",
                             Artist = "Queen",
                             Category = "Rock",
                             Length = 354,
@@ -145,15 +128,6 @@ namespace PlaylistApi.Migrations
                         .HasForeignKey("PlaylistApi.Models.Streams", "TrackId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("PlaylistApi.Models.Track", b =>
-                {
-                    b.HasOne("PlaylistApi.Models.Album", "Album")
-                        .WithMany()
-                        .HasForeignKey("AlbumId");
-
-                    b.Navigation("Album");
                 });
 
             modelBuilder.Entity("PlaylistApi.Models.Track", b =>
