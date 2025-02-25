@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace PlaylistApi
+namespace PlaylistApi.Models
 {
     public class Track
     {
