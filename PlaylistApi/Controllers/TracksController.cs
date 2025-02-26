@@ -26,9 +26,22 @@ namespace PlaylistApi.Controllers
         public async Task<ActionResult<IEnumerable<Track>>> GetTracks()
         {
             return await _context.Tracks
-                .Include(track => track.Streams)
-                .Include(track => track.Album)
-                .Include(track => track.Genres)
+                .Select( track => new Track
+                {
+                    Id = track.Id,
+                    Title = track.Title,
+                    Artist = track.Artist,
+                    Length = track.Length,
+                    Album = new Album
+                    {
+                        Id = track.Album.Id,
+                        AlbumTitle = track.Album.AlbumTitle,
+                        Year = track.Album.Year,
+                        Studio = track.Album.Studio
+                    },
+                    Streams = track.Streams,
+                    Genres = track.Genres
+                })
                 .ToListAsync();
         }
 
@@ -37,9 +50,22 @@ namespace PlaylistApi.Controllers
         public async Task<ActionResult<Track>> GetTrack(int id)
         {
             var track = await _context.Tracks
-                .Include(track => track.Streams)
-                .Include(track => track.Album)
-                .Include(track => track.Genres)
+                .Select(track => new Track
+                {
+                    Id = track.Id,
+                    Title = track.Title,
+                    Artist = track.Artist,
+                    Length = track.Length,
+                    Album = new Album
+                    {
+                        Id = track.Album.Id,
+                        AlbumTitle = track.Album.AlbumTitle,
+                        Year = track.Album.Year,
+                        Studio = track.Album.Studio
+                    },
+                    Streams = track.Streams,
+                    Genres = track.Genres
+                })
                 .FirstOrDefaultAsync(t => t.Id == id);
 
             if (track == null)

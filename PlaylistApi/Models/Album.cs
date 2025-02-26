@@ -12,6 +12,7 @@ namespace PlaylistApi.Models
         public string? Studio { get; set; }
 
         // Relationship - id GET songs on the album
+
         public List<Track>? Tracks { get; set; }
 
     }
