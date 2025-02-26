@@ -28,6 +28,7 @@ namespace PlaylistApi.Controllers
             return await _context.Tracks
                 .Include(track => track.Streams)
                 .Include(track => track.Album)
+                .Include(track => track.Genres)
                 .ToListAsync();
         }
 
