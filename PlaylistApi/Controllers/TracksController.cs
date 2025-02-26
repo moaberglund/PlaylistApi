@@ -36,7 +36,11 @@ namespace PlaylistApi.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<Track>> GetTrack(int id)
         {
-            var track = await _context.Tracks.FindAsync(id);
+            var track = await _context.Tracks
+                .Include(track => track.Streams)
+                .Include(track => track.Album)
+                .Include(track => track.Genres)
+                .FirstOrDefaultAsync(t => t.Id == id);
 
             if (track == null)
             {
