@@ -11,5 +11,8 @@ namespace PlaylistApi.Models
 
         public string? Studio { get; set; }
 
+        // List with songs on the album
+        public List<Track>? Tracks { get; set; }
+
     }
 }

@@ -32,15 +32,26 @@ namespace PlaylistApi.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<Album>> GetAlbum(int id)
         {
-            var album = await _context.Albums.FindAsync(id);
+            var album = await _context.Albums
+                .Where(a => a.Id == id)
+                .Select(a => new
+                {
+                    a.Id,
+                    a.AlbumTitle,
+                    a.Year,
+                    a.Studio,
+                    Tracks = a.Tracks.Select(t => t.Title).ToList() // Hämta endast titlar
+                })
+                .FirstOrDefaultAsync();
 
             if (album == null)
             {
                 return NotFound();
             }
 
-            return album;
+            return Ok(album);
         }
+
 
         // PUT: api/Albums/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
