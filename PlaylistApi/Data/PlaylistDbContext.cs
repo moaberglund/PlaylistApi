@@ -46,5 +46,6 @@ namespace PlaylistApi.Data
                 }
                 );
         }
+        public DbSet<PlaylistApi.Models.Genre> Genre { get; set; } = default!;
     }
 }
